@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+      <section class="form">
+        <div class="form__main">
+          <form class="form__form">
+            <input class="form__input" value="" type="text" />
+            <button class="form__button" type="submit"></button>
+          </form>
+        </div>
+      </section>
+      <section class="weather">
+        <div class="weather__main hide">
+          <img
+            src="http://cdn.weatherapi.com/weather/128x128/day/113.png"
+            alt=""
+            class="weather__icon"
+          />
+          <div class="location">
+            <img src="./images/geo.svg" alt="" class="location__img" />
+            <p class="location__country">Kyiv, Ukraine</p>
+          </div>
+          <div class="temp">
+            <p class="temp__now">18</p>
+            <p class="temp__celsiy">°C</p>
+          </div>
+          <div class="max-min">
+            <p class="max">22°</p>
+            <p class="min">18°</p>
+          </div>
+          <div class="stats">
+            <div class="stats__item">
+              <img src="./images/wind.svg" alt="" class="stats__item__img" />
+              <div class="item__values">
+                <p class="values__title">Wind</p>
+                <p class="values__value wind">17 <span>km/h</span></p>
+              </div>
+            </div>
+            <div class="stats__item">
+              <img
+                src="./images/humidity.svg"
+                alt=""
+                class="stats__item__img"
+              />
+              <div class="item__values">
+                <p class="values__title">Humidity</p>
+                <p class="values__value humidity">17<span> %</span></p>
+              </div>
+            </div>
+            <div class="stats__item">
+              <img src="./images/rain.svg" alt="" class="stats__item__img" />
+              <div class="item__values">
+                <p class="values__title">Rain</p>
+                <p class="values__value rain">17<span> %</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="search hide">
+        <div class="search__item"></div>
+      </div>
+    </div>
+    <script src="./js/main.js"></script>
+  </body>
+</html>

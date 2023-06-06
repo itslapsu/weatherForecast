@@ -1,0 +1,9 @@
+@import "reset";
+@import "font";
+@import "components/main";
+
+.container {
+  width: 100%;
+  max-width: 1200px; /* Максимальная ширина контейнера */
+  margin: 0 auto; /* Выравнивание по центру */
+}
