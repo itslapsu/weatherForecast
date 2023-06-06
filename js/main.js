@@ -5,7 +5,7 @@ const formInput = document.querySelector(".form__input");
 const formButton = document.querySelector(".form__button");
 
 const apiKey = "2205e20b14da4db286500717230805";
-const apiURL = `http://api.weatherapi.com/v1/forecast.json?key=${apiKey}&days=1&q=`;
+const apiURL = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&days=1&q=`;
 const apiSearchURL = `https://api.weatherapi.com/v1/search.json?key=${apiKey}&q=`;
 const apiIP = `https://api.weatherapi.com/v1/ip.json?key=${apiKey}&q=`;
 
