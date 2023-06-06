@@ -1,0 +1,160 @@
+.weather {
+  position: relative;
+  margin-top: 32px;
+  display: grid;
+  height: 480px;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  grid-gap: 32px;
+
+  &__icon {
+    width: 128px;
+    height: 128px;
+    position: absolute;
+    top: -50px;
+    left: -50px;
+  }
+
+  &__main {
+    display: flex;
+    flex-direction: column;
+    background-image: url("../images/bg-main.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 10px;
+    position: relative;
+    width: 480px;
+
+    transition: 1s all;
+
+    &.hide {
+      filter: blur(50px);
+    }
+
+    .location {
+      display: flex;
+      justify-content: right;
+      margin-right: 32px;
+      margin-top: 32px;
+
+      .location__country {
+        margin-left: 4px;
+        opacity: 0.6;
+      }
+    }
+
+    .temp {
+      display: flex;
+      justify-content: center;
+      margin-top: 64px;
+
+      &__now {
+        font-size: 88px;
+        justify-self: center;
+      }
+
+      &__celsiy {
+        font-size: 18px;
+        margin-top: 12px;
+        opacity: 0.5;
+      }
+    }
+
+    .max-min {
+      display: flex;
+      justify-content: center;
+      font-size: 24px;
+
+      .min {
+        margin-left: 3px;
+        opacity: 0.5;
+      }
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+      margin-top: auto;
+      margin-left: 12px;
+      margin-right: 12px;
+      margin-bottom: 12px;
+
+      &__item {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        grid-template-areas: "img values";
+        gap: 12px;
+        background: #6660c860;
+        border-radius: 6px;
+        margin-top: auto;
+        backdrop-filter: blur(10px);
+
+        &__img {
+          align-self: center;
+          margin-top: 14px;
+          margin-left: 16px;
+          margin-bottom: 14px;
+          grid-area: img;
+        }
+
+        .item__values {
+          grid-area: values;
+          margin-top: 12px;
+          margin-bottom: 12px;
+
+          .values__title {
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 14px;
+
+            color: #e7e6fb;
+          }
+
+          .values__value {
+            font-weight: 700;
+            font-size: 18px;
+            line-height: 22px;
+
+            color: #e7e6fb;
+
+            span {
+              font-weight: 700;
+              font-size: 14px;
+              line-height: 17px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .weather {
+    &__main {
+      width: 320px;
+
+      .stats {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .location {
+        text-align: center;
+        justify-content: center;
+        flex-direction: row;
+
+        &__img {
+          display: none;
+        }
+
+        &__country {
+          max-width: 240px;
+          padding-top: 18px;
+          padding-bottom: -18px;
+        }
+      }
+    }
+  }
+}

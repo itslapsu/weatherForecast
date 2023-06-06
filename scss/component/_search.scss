@@ -1,0 +1,35 @@
+.search {
+  display: grid;
+  position: absolute;
+  width: 480px;
+  background: #6d67d0;
+  text-align: center;
+  overflow: hidden;
+  border-radius: 8px;
+  top: 140px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  &.hide {
+    display: none;
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__link {
+    display: inline-block;
+    text-decoration: none;
+    color: #fff;
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .search {
+    width: 320px;
+  }
+}
