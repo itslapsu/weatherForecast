@@ -122,6 +122,7 @@ body {
 .weather {
   position: relative;
   margin-top: 32px;
+  margin-bottom: 16px;
   display: grid;
   height: 480px;
   grid-template-columns: 1fr;
@@ -321,6 +322,9 @@ body {
 }
 
 @media screen and (max-width: 480px) {
+  .form {
+    margin-top: 16px;
+  }
   .form__main {
     width: 320px;
   }
