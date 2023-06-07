@@ -145,6 +145,7 @@
         text-align: center;
         justify-content: center;
         flex-direction: row;
+        margin-right: 0px;
 
         &__img {
           display: none;
@@ -152,6 +153,7 @@
 
         &__country {
           margin-left: 0px !important;
+          margin-right: unset;
           max-width: 240px;
           padding-top: 18px;
           padding-bottom: -18px;

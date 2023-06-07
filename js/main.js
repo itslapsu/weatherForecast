@@ -12,6 +12,8 @@ const apiIP = `https://api.weatherapi.com/v1/ip.json?key=${apiKey}&q=`;
 const searchBlock = document.querySelector(".search");
 const searchItem = document.querySelector(".search__item");
 
+const loader = document.querySelector(".loader");
+
 let isShowed = false;
 
 window.addEventListener("DOMContentLoaded", function () {
@@ -31,11 +33,11 @@ window.addEventListener("DOMContentLoaded", function () {
             loadWeather(event, data.city);
           })
           .catch((error) => {
-            return;
+            removeLoader();
           });
       })
       .catch((error) => {
-        return;
+        removeLoader();
       });
   }
 });
@@ -94,6 +96,11 @@ function searchURL(city) {
     });
 }
 
+function removeLoader() {
+  loader.classList.add("none");
+  document.body.classList.remove("noscroll");
+}
+
 function loadWeather(event, city, preventDefault = false) {
   if (preventDefault) {
     event.preventDefault();
@@ -146,9 +153,11 @@ function loadWeather(event, city, preventDefault = false) {
         searchBlock.classList.add("hide");
         formInput.value = data.location.name;
         window.history.replaceState(null, "", `?city=${data.location.name}`);
+        removeLoader();
       }
     })
     .catch(function (error) {
       console.log("Error:", error);
+      removeLoader();
     });
 }

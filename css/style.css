@@ -119,6 +119,55 @@ body {
   background: #8e87fa;
 }
 
+.loader {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background: #8e87fa;
+  width: 100vw;
+  height: 100vh;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.loader__animate {
+  margin: 0 auto;
+  width: 150px;
+  height: 150px;
+  border-radius: 100%;
+  border-top: 10px solid #fff;
+  border-right: 10px solid #6e65e6;
+  border-bottom: 10px solid #6e65e6;
+  border-left: 10px solid #6e65e6;
+  -webkit-animation-name: loader;
+          animation-name: loader;
+  -webkit-animation-duration: 0.8s;
+          animation-duration: 0.8s;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+}
+
+@-webkit-keyframes loader {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+@keyframes loader {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
 .weather {
   position: relative;
   margin-top: 32px;
@@ -269,12 +318,14 @@ body {
     -webkit-box-direction: normal;
         -ms-flex-direction: row;
             flex-direction: row;
+    margin-right: 0px;
   }
   .weather__main .location__img {
     display: none;
   }
   .weather__main .location__country {
     margin-left: 0px !important;
+    margin-right: unset;
     max-width: 240px;
     padding-top: 18px;
     padding-bottom: -18px;
@@ -376,4 +427,12 @@ body {
   width: 100%;
   max-width: 1200px; /* Максимальная ширина контейнера */
   margin: 0 auto; /* Выравнивание по центру */
+}
+
+body.noscroll {
+  overflow: hidden;
+}
+
+.none {
+  display: none !important;
 }

@@ -1,0 +1,30 @@
+.loader {
+  display: flex;
+  background: #8e87fa;
+  width: 100vw;
+  height: 100vh;
+  align-items: center;
+
+  &__animate {
+    margin: 0 auto;
+    width: 150px;
+    height: 150px;
+    border-radius: 100%;
+    border-top: 10px solid #fff;
+    border-right: 10px solid #6e65e6;
+    border-bottom: 10px solid #6e65e6;
+    border-left: 10px solid #6e65e6;
+    animation-name: loader;
+    animation-duration: 0.8s;
+    animation-iteration-count: infinite;
+  }
+}
+
+@keyframes loader {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

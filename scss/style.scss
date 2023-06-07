@@ -7,3 +7,11 @@
   max-width: 1200px; /* Максимальная ширина контейнера */
   margin: 0 auto; /* Выравнивание по центру */
 }
+
+body.noscroll {
+  overflow: hidden;
+}
+
+.none {
+  display: none !important;
+}
