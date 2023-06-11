@@ -196,6 +196,8 @@ function loadWeather(event, city, preventDefault = false) {
     .then(function (data) {
       if (data) {
         globalData = data;
+        deleteActiveDaysItem();
+        daysItems[0].classList.add("days__item_active");
         formInput.blur();
         locationCountry.textContent = `${data.location.name}, ${data.location.country}`;
 
