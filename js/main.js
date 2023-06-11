@@ -1,20 +1,43 @@
 const weatherBlock = document.querySelector(".weather__main");
+const forecastBlock = document.querySelector(".forecast__main");
 
 const form = document.querySelector(".form__form");
 const formInput = document.querySelector(".form__input");
 const formButton = document.querySelector(".form__button");
 
 const apiKey = "2205e20b14da4db286500717230805";
-const apiURL = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&days=1&q=`;
+const apiURL = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&days=3&q=`;
 const apiSearchURL = `https://api.weatherapi.com/v1/search.json?key=${apiKey}&q=`;
 const apiIP = `https://api.weatherapi.com/v1/ip.json?key=${apiKey}&q=`;
+
+const locationCountry = document.querySelector(".location__country");
+
+const tempNow = document.querySelector(".temp__now");
+const tempMax = document.querySelector(".max");
+const tempMin = document.querySelector(".min");
+
+const windValue = document.querySelector(".wind");
+const humidityValue = document.querySelector(".humidity");
+const rainValue = document.querySelector(".rain");
+
+const weatherIcon = document.querySelector(".weather__icon");
 
 const searchBlock = document.querySelector(".search");
 const searchItem = document.querySelector(".search__item");
 
 const loader = document.querySelector(".loader");
 
+const daysItems = document.getElementsByClassName("days__item");
+const daysIcons = document.getElementsByClassName("days__icon");
+const daysMax = document.getElementsByClassName("forecastMax");
+const daysMin = document.getElementsByClassName("forecastMin");
+const daysLinks = document.getElementsByClassName("days__link");
+
+console.log(daysMax[1]);
+
 let isShowed = false;
+
+let globalData;
 
 window.addEventListener("DOMContentLoaded", function () {
   var urlParams = new URLSearchParams(window.location.search);
@@ -51,6 +74,7 @@ form.addEventListener("submit", (e) => {
 formInput.addEventListener("focus", function () {
   formInput.select();
   weatherBlock.classList.add("hide");
+  forecastBlock.classList.add("hide");
   searchBlock.classList.remove("hide");
 });
 
@@ -58,6 +82,7 @@ formInput.addEventListener("focus", function () {
 formInput.addEventListener("blur", function () {
   if (isShowed) {
     weatherBlock.classList.remove("hide");
+    forecastBlock.classList.remove("hide");
     setTimeout(() => {
       searchBlock.classList.add("hide");
     }, 200);
@@ -67,6 +92,21 @@ formInput.addEventListener("blur", function () {
 formInput.addEventListener("input", function () {
   searchURL(formInput.value);
 });
+
+Array.from(daysItems).forEach(function (daysItem) {
+  daysItem.addEventListener("click", function (event) {
+    event.preventDefault();
+    deleteActiveDaysItem();
+    daysItem.classList.add("days__item_active");
+    changeWeather(event, daysItem.id);
+  });
+});
+
+function deleteActiveDaysItem() {
+  Array.from(daysItems).forEach(function (daysItem) {
+    daysItem.classList.remove("days__item_active");
+  });
+}
 
 function searchURL(city) {
   if (!city) return;
@@ -101,21 +141,51 @@ function removeLoader() {
   document.body.classList.remove("noscroll");
 }
 
+function changeWeather(event, index) {
+  event.preventDefault();
+
+  if (index == 0) {
+    tempNow.textContent = `${Math.round(globalData.current.temp_c)}`;
+  } else {
+    tempNow.textContent = `${Math.round(
+      globalData.forecast.forecastday[index].day.avgtemp_c
+    )}`;
+  }
+
+  tempMax.textContent = `${Math.round(
+    globalData.forecast.forecastday[index].day.maxtemp_c
+  )}°`;
+  tempMin.textContent = `${Math.round(
+    globalData.forecast.forecastday[index].day.mintemp_c
+  )}°`;
+
+  weatherIcon.src = `https:${globalData.forecast.forecastday[index].day.condition.icon}`;
+
+  windValue.innerHTML = `${Math.round(
+    globalData.forecast.forecastday[index].day.maxwind_kph
+  )} <span>km/h</span>`;
+  humidityValue.innerHTML = `${Math.round(
+    globalData.forecast.forecastday[index].day.avghumidity
+  )} <span>%</span>`;
+  rainValue.innerHTML = `${Math.round(
+    globalData.forecast.forecastday[index].day.daily_chance_of_rain
+  )} <span>%</span>`;
+}
+
+function getStringDate(unixTime) {
+  let date = new Date(unixTime * 1000);
+
+  let day = ("0" + date.getDate()).slice(-2);
+  let month = ("0" + (date.getMonth() + 1)).slice(-2);
+  let year = date.getFullYear();
+
+  return `${day}.${month}.${year}`;
+}
+
 function loadWeather(event, city, preventDefault = false) {
   if (preventDefault) {
     event.preventDefault();
   }
-  const locationCountry = document.querySelector(".location__country");
-
-  const tempNow = document.querySelector(".temp__now");
-  const tempMax = document.querySelector(".max");
-  const tempMin = document.querySelector(".min");
-
-  const windValue = document.querySelector(".wind");
-  const humidityValue = document.querySelector(".humidity");
-  const rainValue = document.querySelector(".rain");
-
-  const weatherIcon = document.querySelector(".weather__icon");
 
   fetch(`${apiURL}${city}`)
     .then(function (response) {
@@ -125,6 +195,7 @@ function loadWeather(event, city, preventDefault = false) {
     })
     .then(function (data) {
       if (data) {
+        globalData = data;
         formInput.blur();
         locationCountry.textContent = `${data.location.name}, ${data.location.country}`;
 
@@ -146,14 +217,33 @@ function loadWeather(event, city, preventDefault = false) {
           data.forecast.forecastday[0].day.daily_chance_of_rain
         )} <span>%</span>`;
 
-        weatherIcon.src = `http:${data.current.condition.icon}`;
+        weatherIcon.src = `https:${data.current.condition.icon}`;
+
+        for (let i = 0; i < 3; i++) {
+          daysMax[i].textContent = `${Math.round(
+            data.forecast.forecastday[i].day.maxtemp_c
+          )}°`;
+          daysMin[i].textContent = `${Math.round(
+            data.forecast.forecastday[i].day.mintemp_c
+          )}°`;
+
+          daysIcons[
+            i
+          ].src = `https:${data.forecast.forecastday[i].day.condition.icon}`;
+
+          daysLinks[i].textContent = getStringDate(
+            data.forecast.forecastday[i].date_epoch
+          );
+        }
 
         isShowed = true;
         weatherBlock.classList.remove("hide");
+        forecastBlock.classList.remove("hide");
         searchBlock.classList.add("hide");
         formInput.value = data.location.name;
         window.history.replaceState(null, "", `?city=${data.location.name}`);
         removeLoader();
+        console.log(globalData);
       }
     })
     .catch(function (error) {

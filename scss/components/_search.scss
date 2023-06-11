@@ -1,7 +1,8 @@
 .search {
   display: grid;
   position: absolute;
-  width: 480px;
+  width: 100%;
+  max-width: 720px;
   background: #6d67d0;
   text-align: center;
   overflow: hidden;
