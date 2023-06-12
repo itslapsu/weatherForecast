@@ -159,7 +159,11 @@ function changeWeather(event, index) {
     globalData.forecast.forecastday[index].day.mintemp_c
   )}°`;
 
-  weatherIcon.src = `https:${globalData.forecast.forecastday[index].day.condition.icon}`;
+  weatherIcon.src =
+    `https:${globalData.forecast.forecastday[index].day.condition.icon}`.replace(
+      "64x64",
+      "128x128"
+    );
 
   windValue.innerHTML = `${Math.round(
     globalData.forecast.forecastday[index].day.maxwind_kph
@@ -219,7 +223,10 @@ function loadWeather(event, city, preventDefault = false) {
           data.forecast.forecastday[0].day.daily_chance_of_rain
         )} <span>%</span>`;
 
-        weatherIcon.src = `https:${data.current.condition.icon}`;
+        weatherIcon.src = `https:${data.current.condition.icon}`.replace(
+          "64x64",
+          "128x128"
+        );
 
         for (let i = 0; i < 3; i++) {
           daysMax[i].textContent = `${Math.round(
