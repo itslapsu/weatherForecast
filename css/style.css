@@ -441,10 +441,9 @@ body {
 }
 .forecast__main {
   height: 170px;
-  background: #6d67d0;
-  max-width: 720px;
   width: 100%;
-  border-radius: 10px;
+  max-width: 720px;
+  min-width: 320px;
   -webkit-transition: 1s all;
   transition: 1s all;
 }
@@ -452,9 +451,32 @@ body {
   -webkit-filter: blur(50px);
           filter: blur(50px);
 }
+.forecast__hours, .forecast__days {
+  width: 100%;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  border-radius: 10px;
+  background: #6d67d0;
+  margin-bottom: 16px;
+}
+
+.hours {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  text-align: center;
+}
+
+.hour__icon {
+  position: relative;
+  width: 48px;
+  margin: 0 auto;
+}
 
 .days {
-  margin-top: 24px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

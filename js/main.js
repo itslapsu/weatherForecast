@@ -33,6 +33,10 @@ const daysMax = document.getElementsByClassName("forecastMax");
 const daysMin = document.getElementsByClassName("forecastMin");
 const daysLinks = document.getElementsByClassName("days__link");
 
+const hoursIcon = document.getElementsByClassName("hour__icon");
+const hoursTemp = document.getElementsByClassName("hour__temp");
+const hoursText = document.getElementsByClassName("hour__text");
+
 console.log(daysMax[1]);
 
 let isShowed = false;
@@ -146,10 +150,19 @@ function changeWeather(event, index) {
 
   if (index == 0) {
     tempNow.textContent = `${Math.round(globalData.current.temp_c)}`;
+    weatherIcon.src = `https:${globalData.current.condition.icon}`.replace(
+      "64x64",
+      "128x128"
+    );
   } else {
     tempNow.textContent = `${Math.round(
       globalData.forecast.forecastday[index].day.avgtemp_c
     )}`;
+    weatherIcon.src =
+      `https:${globalData.forecast.forecastday[index].day.condition.icon}`.replace(
+        "64x64",
+        "128x128"
+      );
   }
 
   tempMax.textContent = `${Math.round(
@@ -158,12 +171,6 @@ function changeWeather(event, index) {
   tempMin.textContent = `${Math.round(
     globalData.forecast.forecastday[index].day.mintemp_c
   )}°`;
-
-  weatherIcon.src =
-    `https:${globalData.forecast.forecastday[index].day.condition.icon}`.replace(
-      "64x64",
-      "128x128"
-    );
 
   windValue.innerHTML = `${Math.round(
     globalData.forecast.forecastday[index].day.maxwind_kph
@@ -174,6 +181,24 @@ function changeWeather(event, index) {
   rainValue.innerHTML = `${Math.round(
     globalData.forecast.forecastday[index].day.daily_chance_of_rain
   )} <span>%</span>`;
+
+  setHoursInformation(index);
+}
+
+function setHoursInformation(index) {
+  Array.from(hoursIcon).forEach(function (hourIcon, i) {
+    hourIcon.src =
+      `https:${globalData.forecast.forecastday[index].hour[i].condition.icon}`.replace(
+        "64x64",
+        "128x128"
+      );
+  });
+
+  Array.from(hoursTemp).forEach(function (hourTemp, i) {
+    hourTemp.textContent = `${Math.round(
+      globalData.forecast.forecastday[index].hour[i].temp_c
+    )}°`;
+  });
 }
 
 function getStringDate(unixTime) {
@@ -199,6 +224,7 @@ function loadWeather(event, city, preventDefault = false) {
     })
     .then(function (data) {
       if (data) {
+        console.log(data);
         globalData = data;
         deleteActiveDaysItem();
         daysItems[0].classList.add("days__item_active");
@@ -252,6 +278,7 @@ function loadWeather(event, city, preventDefault = false) {
         formInput.value = data.location.name;
         window.history.replaceState(null, "", `?city=${data.location.name}`);
         removeLoader();
+        setHoursInformation(0);
         console.log(globalData);
       }
     })

@@ -6,20 +6,43 @@
 
   &__main {
     height: 170px;
-    background: #6d67d0;
-    max-width: 720px;
     width: 100%;
-    border-radius: 10px;
+    max-width: 720px;
+    min-width: 320px;
     transition: 1s all;
 
     &.hide {
       filter: blur(50px);
     }
   }
+
+  &__hours,
+  &__days {
+    width: 100%;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    border-radius: 10px;
+    background: #6d67d0;
+    margin-bottom: 16px;
+  }
+}
+
+.hours {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.hour {
+  &__icon {
+    position: relative;
+    width: 48px;
+
+    margin: 0 auto;
+  }
 }
 
 .days {
-  margin-top: 24px;
   display: flex;
   justify-content: space-around;
   gap: 16px;
