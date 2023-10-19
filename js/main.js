@@ -219,6 +219,7 @@ function loadWeather(event, city, preventDefault = false) {
       if (response.ok) {
         return response.json();
       }
+      else return removeLoader();
     })
     .then(function (data) {
       if (data) {
