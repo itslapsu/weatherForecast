@@ -37,8 +37,6 @@ const hoursIcon = document.getElementsByClassName("hour__icon");
 const hoursTemp = document.getElementsByClassName("hour__temp");
 const hoursText = document.getElementsByClassName("hour__text");
 
-console.log(daysMax[1]);
-
 let isShowed = false;
 
 let globalData;
@@ -224,7 +222,6 @@ function loadWeather(event, city, preventDefault = false) {
     })
     .then(function (data) {
       if (data) {
-        console.log(data);
         globalData = data;
         deleteActiveDaysItem();
         daysItems[0].classList.add("days__item_active");
@@ -279,7 +276,6 @@ function loadWeather(event, city, preventDefault = false) {
         window.history.replaceState(null, "", `?city=${data.location.name}`);
         removeLoader();
         setHoursInformation(0);
-        console.log(globalData);
       }
     })
     .catch(function (error) {
